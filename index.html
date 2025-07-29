@@ -132,14 +132,13 @@
 
     @media (max-width: 768px) {
       header {
-        flex-direction: row;
-        align-items: flex-start;
-        padding: 0.6rem 1rem 0.3rem;
+        padding: 0.5rem 1rem; /* Reduced padding for shorter height */
+        min-height: auto; /* Allow natural height */
       }
 
       .logo-container {
-        flex: 1 1 100%;
-        align-items: flex-start;
+        flex: 1;
+        align-items: center; /* Keep centered alignment */
       }
 
       .logo-container img {
@@ -148,16 +147,18 @@
 
       .header-title h1 {
         font-size: 0.95rem;
+        line-height: 1.2; /* Tighter line height */
       }
 
       .header-title span {
         font-size: 0.6rem;
+        line-height: 1.1; /* Tighter line height */
       }
 
       .menu-icons {
-        flex: 1 1 100%;
-        justify-content: flex-end;
-        margin-top: 0.3rem;
+        display: flex;
+        align-items: center; /* Vertically center with text */
+        gap: 0.6rem; /* Reduced gap */
       }
 
       nav {
@@ -175,11 +176,20 @@
 
       .menu-toggle {
         display: flex;
+        align-items: center; /* Center the hamburger lines */
+      }
+
+      .menu-toggle span {
+        height: 2px; /* Slightly thinner lines */
+        width: 20px; /* Slightly smaller width */
+        margin: 3px 0; /* Reduced spacing */
       }
 
       .toggle-mode {
-        font-size: 1.3rem;
+        font-size: 1.1rem; /* Slightly smaller */
         padding: 0.2rem;
+        display: flex;
+        align-items: center; /* Center the emoji */
       }
     }
 
