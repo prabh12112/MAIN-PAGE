@@ -2,168 +2,354 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>D.A.V. College Jalandhar</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DAV Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
-    body {
+    :root {
+      --bg-color: #000;
+      --text-color: #fff;
+      --header-bg: #1a1a1a;
+      --card-bg: #111;
+      --link-color: #ccc;
+      --hover-bg: #333;
+    }
+
+    body.light {
+      --bg-color: #f2f2f2;
+      --text-color: #000;
+      --header-bg: #ffffff;
+      --card-bg: #e4e4e4;
+      --link-color: #111;
+      --hover-bg: #ddd;
+    }
+
+    * {
       margin: 0;
-      font-family: 'Segoe UI', sans-serif;
-      background-color: #000;
-      color: #fff;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.5s ease, color 0.5s ease;
+      overflow-x: hidden;
+      animation: fadeInBody 0.8s ease forwards;
+    }
+
+    @keyframes fadeInBody {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     header {
-      background-color: #1a1a1a;
-      padding: 10px 20px;
+      background-color: var(--header-bg);
       display: flex;
+      align-items: center;
       justify-content: space-between;
-      align-items: center;
+      padding: 0.6rem 1rem;
       flex-wrap: wrap;
+      animation: slideDown 0.6s ease forwards;
     }
 
-    .logo-title {
+    .logo-container {
       display: flex;
       align-items: center;
-      gap: 10px;
-      max-width: 80%;
-      flex-shrink: 1;
+      gap: 0.7rem;
     }
 
-    .logo-title img {
-      width: 48px;
-      height: 48px;
+    .logo-container img {
+      height: 38px;
+      width: auto;
+      background: white;
+      border-radius: 8px;
+      padding: 4px;
     }
 
-    .title-text {
-      font-size: 16px;
-      line-height: 1.2;
+    .header-title {
+      display: flex;
+      flex-direction: column;
     }
 
-    .title-text strong {
-      font-size: 18px;
+    .header-title h1 {
+      font-size: 1rem;
+      white-space: nowrap;
     }
 
-    .header-actions {
+    .header-title span {
+      font-size: 0.7rem;
+      color: var(--link-color);
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--link-color);
+      font-size: 0.9rem;
+      padding: 0.4rem 0.7rem;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+
+    nav a:hover {
+      background-color: var(--hover-bg);
+    }
+
+    .menu-icons {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 0.8rem;
     }
 
-    .dark-mode-toggle,
-    .hamburger {
-      font-size: 20px;
+    .toggle-mode {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: var(--text-color);
+      cursor: pointer;
+      padding: 0.3rem;
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
       cursor: pointer;
     }
 
-    .main {
+    .menu-toggle span {
+      height: 3px;
+      width: 22px;
+      background: var(--text-color);
+      margin: 4px 0;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--header-bg);
+        margin-top: 0.5rem;
+      }
+
+      nav.active {
+        display: flex;
+        animation: fadeInNav 0.3s ease forwards;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .menu-icons {
+        align-self: flex-end;
+        margin-top: 0.5rem;
+      }
+
+      .logo-container {
+        width: 100%;
+        justify-content: space-between;
+      }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInNav {
+      from { opacity: 0; transform: scaleY(0.9); }
+      to { opacity: 1; transform: scaleY(1); }
+    }
+
+    main {
+      padding: 2rem;
+      min-height: 70vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
       text-align: center;
-      padding: 50px 20px;
+      animation: slideUp 0.7s ease forwards;
     }
 
-    .main h1 {
-      font-size: 24px;
-      margin-bottom: 20px;
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
     }
 
-    .main a.button {
-      display: block;
-      background-color: #29b6f6;
-      color: black;
-      padding: 15px;
-      border-radius: 10px;
-      margin: 15px auto;
-      width: 90%;
+    .attendance-buttons {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
       max-width: 400px;
-      text-decoration: none;
-      font-weight: bold;
-      transition: background-color 0.3s ease;
+      animation: fadeZoom 1s ease-in-out forwards;
     }
 
-    .main a.button:hover {
-      background-color: #0288d1;
+    @keyframes fadeZoom {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
+    }
+
+    .attendance-buttons a {
+      text-decoration: none;
+      padding: 1rem;
+      background-color: #4fc3f7;
+      color: #000;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .attendance-buttons a:hover {
+      background-color: #03a9f4;
+      transform: scale(1.03);
     }
 
     footer {
-      background-color: #1a1a1a;
-      color: #ccc;
-      padding: 20px;
+      background-color: var(--header-bg);
+      color: var(--text-color);
+      padding: 2rem;
       text-align: center;
-      font-size: 14px;
+      animation: fadeInFooter 1s ease forwards;
     }
 
-    @media (max-width: 600px) {
-      .logo-title {
-        max-width: 100%;
-      }
+    @keyframes fadeInFooter {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
 
-      .title-text {
-        font-size: 14px;
-      }
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
 
-      .header-actions {
-        gap: 8px;
-      }
+    .footer-section h4 {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
 
-      .dark-mode-toggle {
-        font-size: 18px;
-      }
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      font-size: 0.8rem;
+    }
 
-      .hamburger {
-        font-size: 24px;
-      }
+    .footer-section li {
+      margin-bottom: 4px;
+    }
+
+    .footer-section a {
+      color: var(--link-color);
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+
+    .footer-divider {
+      height: 1px;
+      background: #444;
+      margin: 1rem 0;
+      opacity: 0.4;
+    }
+
+    .footer-bottom {
+      font-size: 0.75rem;
+      text-align: center;
+      margin-top: 1rem;
     }
   </style>
 </head>
-<body>
+<body oncontextmenu="return false">
 
-  <header>
-    <div class="logo-title">
-      <img src="your-logo.png" alt="DAV Logo" />
-      <div class="title-text">
-        <strong>D.A.V. College Jalandhar</strong><br>
-        BCA BATCH 2025 – 2028
-      </div>
+<header>
+  <div class="logo-container">
+    <img src="logo-512x512-1.png" alt="DAV Logo" />
+    <div class="header-title">
+      <h1>D.A.V. College Jalandhar</h1>
+      <span>BCA BATCH 2025 – 2028</span>
     </div>
-    <div class="header-actions">
-      <div class="dark-mode-toggle" onclick="toggleDarkMode()">🌙</div>
-      <div class="hamburger" onclick="toggleMenu()">☰</div>
-    </div>
-  </header>
+  </div>
 
-  <!-- Optional navigation (hidden by default, shown on toggle) -->
-  <nav id="menu" style="display: none; background: #111; padding: 10px; text-align: center;">
-    <a href="#" style="color:white; margin: 10px; display:block;">Home</a>
-    <a href="#" style="color:white; margin: 10px; display:block;">Attendance</a>
-    <a href="#" style="color:white; margin: 10px; display:block;">Resources</a>
-    <a href="#" style="color:white; margin: 10px; display:block;">Events</a>
-    <a href="#" style="color:white; margin: 10px; display:block;">About Institute</a>
+  <div class="menu-icons">
+    <button class="toggle-mode" id="darkModeBtn" title="Toggle dark mode">🌙</button>
+    <div class="menu-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <nav id="navMenu">
+    <a href="#">Home</a>
+    <a href="#">Attendance</a>
+    <a href="#">Resources</a>
+    <a href="#">Events</a>
+    <a href="#">About Institute</a>
   </nav>
+</header>
 
-  <div class="main">
-    <h1>Welcome to the DAV College Portal</h1>
-    <a class="button" href="https://prabh12112.github.io/ATTENDENCE-LOC-CHECK/">
+<main>
+  <h2>Welcome to the DAV College Portal</h2>
+  <div class="attendance-buttons">
+    <a href="https://prabh12112.github.io/ATTENDENCE-LOC-CHECK/" target="_blank">
       Attendance for 10:30 AM to 11:15 AM Period
     </a>
-    <a class="button" href="https://prabh12112.github.io/ATTENDANCE-LOC-CHECK-1/">
+    <a href="https://prabh12112.github.io/ATTENDANCE-LOC-CHECK-1/" target="_blank">
       Attendance for 12:00 PM to 12:45 PM Period
     </a>
   </div>
+</main>
 
-  <footer>
-    <div>Quick Links</div>
-    <div>Attendance Policy | Privacy | Contact</div>
-    <div>© 2025 D.A.V. College Jalandhar. All rights reserved.</div>
-  </footer>
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <ul><li><a href="#">Attendance Policy</a></li></ul>
+    </div>
+    <div class="footer-section">
+      <h4>Social Media</h4>
+      <ul><li><a href="https://www.youtube.com/@nischaybahl7714" target="_blank">YouTube</a></li></ul>
+    </div>
+    <div class="footer-section">
+      <h4>Contact</h4>
+      <ul><li><a href="mailto:bca25.28.dav@gmail.com">bca25.28.dav@gmail.com</a></li></ul>
+    </div>
+    <div class="footer-section">
+      <h4>Address</h4>
+      <ul><li>D.A.V. College, Mahatma Hansraj Marg,<br>Jalandhar, Punjab – 144008, India</li></ul>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">© 2025 | Credits: Prabhsimranjot Singh, BCA (FCA-1)</div>
+</footer>
 
-  <script>
-    function toggleDarkMode() {
-      document.body.classList.toggle('dark-mode');
-    }
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('navMenu');
+  toggle.addEventListener('click', () => nav.classList.toggle('active'));
 
-    function toggleMenu() {
-      const menu = document.getElementById('menu');
-      menu.style.display = (menu.style.display === "block") ? "none" : "block";
-    }
-  </script>
+  const modeBtn = document.getElementById('darkModeBtn');
+  modeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    modeBtn.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+  });
+</script>
+
 </body>
 </html>
