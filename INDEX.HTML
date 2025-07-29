@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>DAV Template</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+    body {
+      background-color: #000000;
+      color: #ffffff;
+      overflow-x: hidden;
+    }
+    header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      padding: 0.6rem 1.5rem;
+      background-color: #1a1a1a;
+    }
+    .logo-container {
+      background: white;
+      border-radius: 8px;
+      padding: 4px;
+    }
+    .logo-container img {
+      height: 40px;
+      width: auto;
+    }
+    h1 {
+      font-size: 1.2rem;
+    }
+    main {
+      padding: 2rem;
+      min-height: 70vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+    }
+    footer {
+      background-color: #1a1a1a;
+      color: white;
+      padding: 2rem;
+      text-align: center;
+    }
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+      text-align: left;
+    }
+    .footer-section h4 {
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      font-size: 0.8rem;
+    }
+    .footer-section li {
+      margin-bottom: 4px;
+    }
+    .footer-section a {
+      color: #ccc;
+      text-decoration: none;
+      font-size: 0.8rem;
+    }
+    .footer-divider {
+      height: 1px;
+      background: #444;
+      margin: 1rem 0;
+      opacity: 0.4;
+    }
+    .footer-bottom {
+      font-size: 0.75rem;
+      text-align: center;
+      margin-top: 1rem;
+    }
+  </style>
+</head>
+<body oncontextmenu="return false">
+
+<header>
+  <div class="logo-container">
+    <img src="logo-512x512-1.png" alt="DAV Logo">
+  </div>
+  <h1>D.A.V. College Jalandhar</h1>
+</header>
+
+<main>
+  <h2>Welcome to the DAV College Portal</h2>
+</main>
+
+<footer>
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <ul><li><a href="#">Attendance Policy</a></li></ul>
+    </div>
+    <div class="footer-section">
+      <h4>Social Media</h4>
+      <ul><li><a href="https://www.youtube.com/@nischaybahl7714" target="_blank">YouTube</a></li></ul>
+    </div>
+    <div class="footer-section">
+      <h4>Contact</h4>
+      <ul><li><a href="mailto:bca25.28.dav@gmail.com">bca25.28.dav@gmail.com</a></li></ul>
+    </div>
+    <div class="footer-section">
+      <h4>Address</h4>
+      <ul><li>D.A.V. College, Mahatma Hansraj Marg,<br>Jalandhar, Punjab – 144008, India</li></ul>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">© 2025 | Credits: Prabhsimranjot Singh, BCA (FCA-1)</div>
+</footer>
+
+</body>
+</html>
