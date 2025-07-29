@@ -30,11 +30,18 @@
       box-sizing: border-box;
       font-family: 'Montserrat', sans-serif;
     }
+
     body {
       background-color: var(--bg-color);
       color: var(--text-color);
       transition: background-color 0.5s ease, color 0.5s ease;
       overflow-x: hidden;
+      animation: fadeInBody 0.8s ease forwards;
+    }
+
+    @keyframes fadeInBody {
+      from { opacity: 0; }
+      to { opacity: 1; }
     }
 
     header {
@@ -42,48 +49,45 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-      padding: 0.6rem 1.5rem;
+      padding: 0.6rem 1rem;
       flex-wrap: wrap;
+      animation: slideDown 0.6s ease forwards;
     }
+
     .logo-container {
       display: flex;
       align-items: center;
-      gap: 1rem;
+      gap: 0.7rem;
     }
+
     .logo-container img {
-      height: 40px;
+      height: 38px;
       width: auto;
       background: white;
       border-radius: 8px;
       padding: 4px;
     }
+
     .header-title {
       display: flex;
       flex-direction: column;
     }
+
     .header-title h1 {
-      font-size: 1.2rem;
-    }
-    .header-title span {
-      font-size: 0.75rem;
-      color: var(--link-color);
+      font-size: 1rem;
+      white-space: nowrap;
     }
 
-    .toggle-mode {
-      cursor: pointer;
-      font-size: 0.85rem;
-      background: none;
-      border: 1px solid var(--link-color);
-      color: var(--text-color);
-      border-radius: 5px;
-      padding: 0.3rem 0.6rem;
-      margin-left: 1rem;
+    .header-title span {
+      font-size: 0.7rem;
+      color: var(--link-color);
     }
 
     nav {
       display: flex;
       gap: 1rem;
     }
+
     nav a {
       text-decoration: none;
       color: var(--link-color);
@@ -92,8 +96,24 @@
       border-radius: 4px;
       transition: background 0.2s;
     }
+
     nav a:hover {
       background-color: var(--hover-bg);
+    }
+
+    .menu-icons {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .toggle-mode {
+      background: none;
+      border: none;
+      font-size: 1.2rem;
+      color: var(--text-color);
+      cursor: pointer;
+      padding: 0.3rem;
     }
 
     .menu-toggle {
@@ -101,9 +121,10 @@
       flex-direction: column;
       cursor: pointer;
     }
+
     .menu-toggle span {
       height: 3px;
-      width: 25px;
+      width: 22px;
       background: var(--text-color);
       margin: 4px 0;
     }
@@ -116,18 +137,40 @@
         background-color: var(--header-bg);
         margin-top: 0.5rem;
       }
+
       nav.active {
         display: flex;
-        animation: slideDown 0.3s ease forwards;
+        animation: fadeInNav 0.3s ease forwards;
       }
+
       .menu-toggle {
         display: flex;
+      }
+
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .menu-icons {
+        align-self: flex-end;
+        margin-top: 0.5rem;
+      }
+
+      .logo-container {
+        width: 100%;
+        justify-content: space-between;
       }
     }
 
     @keyframes slideDown {
       from { opacity: 0; transform: translateY(-10px); }
       to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes fadeInNav {
+      from { opacity: 0; transform: scaleY(0.9); }
+      to { opacity: 1; transform: scaleY(1); }
     }
 
     main {
@@ -138,11 +181,11 @@
       align-items: center;
       justify-content: center;
       text-align: center;
-      animation: fadeIn 0.6s ease;
+      animation: slideUp 0.7s ease forwards;
     }
 
-    @keyframes fadeIn {
-      from { opacity: 0; transform: translateY(10px); }
+    @keyframes slideUp {
+      from { opacity: 0; transform: translateY(20px); }
       to { opacity: 1; transform: translateY(0); }
     }
 
@@ -153,6 +196,12 @@
       gap: 1rem;
       width: 100%;
       max-width: 400px;
+      animation: fadeZoom 1s ease-in-out forwards;
+    }
+
+    @keyframes fadeZoom {
+      from { opacity: 0; transform: scale(0.95); }
+      to { opacity: 1; transform: scale(1); }
     }
 
     .attendance-buttons a {
@@ -175,8 +224,14 @@
       color: var(--text-color);
       padding: 2rem;
       text-align: center;
-      transition: background-color 0.5s ease, color 0.5s ease;
+      animation: fadeInFooter 1s ease forwards;
     }
+
+    @keyframes fadeInFooter {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     .footer-content {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
@@ -184,29 +239,35 @@
       margin-bottom: 1rem;
       text-align: left;
     }
+
     .footer-section h4 {
       font-size: 0.9rem;
       margin-bottom: 0.5rem;
     }
+
     .footer-section ul {
       list-style: none;
       padding: 0;
       font-size: 0.8rem;
     }
+
     .footer-section li {
       margin-bottom: 4px;
     }
+
     .footer-section a {
       color: var(--link-color);
       text-decoration: none;
       font-size: 0.8rem;
     }
+
     .footer-divider {
       height: 1px;
       background: #444;
       margin: 1rem 0;
       opacity: 0.4;
     }
+
     .footer-bottom {
       font-size: 0.75rem;
       text-align: center;
@@ -224,14 +285,16 @@
       <span>BCA BATCH 2025 – 2028</span>
     </div>
   </div>
-  <div style="display: flex; align-items: center;">
-    <button class="toggle-mode" id="darkModeBtn">Toggle Mode</button>
+
+  <div class="menu-icons">
+    <button class="toggle-mode" id="darkModeBtn" title="Toggle dark mode">🌙</button>
     <div class="menu-toggle" id="menuToggle">
       <span></span>
       <span></span>
       <span></span>
     </div>
   </div>
+
   <nav id="navMenu">
     <a href="#">Home</a>
     <a href="#">Attendance</a>
@@ -277,15 +340,14 @@
 </footer>
 
 <script>
-  // Hamburger menu toggle
   const toggle = document.getElementById('menuToggle');
   const nav = document.getElementById('navMenu');
   toggle.addEventListener('click', () => nav.classList.toggle('active'));
 
-  // Dark mode toggle
   const modeBtn = document.getElementById('darkModeBtn');
   modeBtn.addEventListener('click', () => {
     document.body.classList.toggle('light');
+    modeBtn.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
   });
 </script>
 
