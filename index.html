@@ -3,9 +3,27 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>DAV Template</title>
+  <title>DAV Portal</title>
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --bg-color: #000;
+      --text-color: #fff;
+      --header-bg: #1a1a1a;
+      --card-bg: #111;
+      --link-color: #ccc;
+      --hover-bg: #333;
+    }
+
+    body.light {
+      --bg-color: #f2f2f2;
+      --text-color: #000;
+      --header-bg: #ffffff;
+      --card-bg: #e4e4e4;
+      --link-color: #111;
+      --hover-bg: #ddd;
+    }
+
     * {
       margin: 0;
       padding: 0;
@@ -13,42 +31,151 @@
       font-family: 'Montserrat', sans-serif;
     }
     body {
-      background-color: #000000;
-      color: #ffffff;
+      background-color: var(--bg-color);
+      color: var(--text-color);
+      transition: background-color 0.5s ease, color 0.5s ease;
       overflow-x: hidden;
     }
+
     header {
+      background-color: var(--header-bg);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0.6rem 1.5rem;
+      flex-wrap: wrap;
+    }
+    .logo-container {
       display: flex;
       align-items: center;
       gap: 1rem;
-      padding: 0.6rem 1.5rem;
-      background-color: #1a1a1a;
-    }
-    .logo-container {
-      background: white;
-      border-radius: 8px;
-      padding: 4px;
     }
     .logo-container img {
       height: 40px;
       width: auto;
+      background: white;
+      border-radius: 8px;
+      padding: 4px;
     }
-    h1 {
+    .header-title {
+      display: flex;
+      flex-direction: column;
+    }
+    .header-title h1 {
       font-size: 1.2rem;
     }
+    .header-title span {
+      font-size: 0.75rem;
+      color: var(--link-color);
+    }
+
+    .toggle-mode {
+      cursor: pointer;
+      font-size: 0.85rem;
+      background: none;
+      border: 1px solid var(--link-color);
+      color: var(--text-color);
+      border-radius: 5px;
+      padding: 0.3rem 0.6rem;
+      margin-left: 1rem;
+    }
+
+    nav {
+      display: flex;
+      gap: 1rem;
+    }
+    nav a {
+      text-decoration: none;
+      color: var(--link-color);
+      font-size: 0.9rem;
+      padding: 0.4rem 0.7rem;
+      border-radius: 4px;
+      transition: background 0.2s;
+    }
+    nav a:hover {
+      background-color: var(--hover-bg);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+    }
+    .menu-toggle span {
+      height: 3px;
+      width: 25px;
+      background: var(--text-color);
+      margin: 4px 0;
+    }
+
+    @media (max-width: 768px) {
+      nav {
+        display: none;
+        flex-direction: column;
+        width: 100%;
+        background-color: var(--header-bg);
+        margin-top: 0.5rem;
+      }
+      nav.active {
+        display: flex;
+        animation: slideDown 0.3s ease forwards;
+      }
+      .menu-toggle {
+        display: flex;
+      }
+    }
+
+    @keyframes slideDown {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
     main {
       padding: 2rem;
       min-height: 70vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       text-align: center;
+      animation: fadeIn 0.6s ease;
     }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .attendance-buttons {
+      margin-top: 2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1rem;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .attendance-buttons a {
+      text-decoration: none;
+      padding: 1rem;
+      background-color: #4fc3f7;
+      color: #000;
+      font-weight: bold;
+      border-radius: 8px;
+      transition: transform 0.2s, background 0.3s;
+    }
+
+    .attendance-buttons a:hover {
+      background-color: #03a9f4;
+      transform: scale(1.03);
+    }
+
     footer {
-      background-color: #1a1a1a;
-      color: white;
+      background-color: var(--header-bg);
+      color: var(--text-color);
       padding: 2rem;
       text-align: center;
+      transition: background-color 0.5s ease, color 0.5s ease;
     }
     .footer-content {
       display: grid;
@@ -70,7 +197,7 @@
       margin-bottom: 4px;
     }
     .footer-section a {
-      color: #ccc;
+      color: var(--link-color);
       text-decoration: none;
       font-size: 0.8rem;
     }
@@ -91,13 +218,39 @@
 
 <header>
   <div class="logo-container">
-    <img src="logo-512x512-1.png" alt="DAV Logo">
+    <img src="logo-512x512-1.png" alt="DAV Logo" />
+    <div class="header-title">
+      <h1>D.A.V. College Jalandhar</h1>
+      <span>BCA BATCH 2025 – 2028</span>
+    </div>
   </div>
-  <h1>D.A.V. College Jalandhar</h1>
+  <div style="display: flex; align-items: center;">
+    <button class="toggle-mode" id="darkModeBtn">Toggle Mode</button>
+    <div class="menu-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+  <nav id="navMenu">
+    <a href="#">Home</a>
+    <a href="#">Attendance</a>
+    <a href="#">Resources</a>
+    <a href="#">Events</a>
+    <a href="#">About Institute</a>
+  </nav>
 </header>
 
 <main>
   <h2>Welcome to the DAV College Portal</h2>
+  <div class="attendance-buttons">
+    <a href="https://prabh12112.github.io/ATTENDENCE-LOC-CHECK/" target="_blank">
+      Attendance for 10:30 AM to 11:15 AM Period
+    </a>
+    <a href="https://prabh12112.github.io/ATTENDANCE-LOC-CHECK-1/" target="_blank">
+      Attendance for 12:00 PM to 12:45 PM Period
+    </a>
+  </div>
 </main>
 
 <footer>
@@ -122,6 +275,19 @@
   <div class="footer-divider"></div>
   <div class="footer-bottom">© 2025 | Credits: Prabhsimranjot Singh, BCA (FCA-1)</div>
 </footer>
+
+<script>
+  // Hamburger menu toggle
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('navMenu');
+  toggle.addEventListener('click', () => nav.classList.toggle('active'));
+
+  // Dark mode toggle
+  const modeBtn = document.getElementById('darkModeBtn');
+  modeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+  });
+</script>
 
 </body>
 </html>
