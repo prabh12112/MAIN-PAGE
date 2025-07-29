@@ -7,18 +7,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     :root {
-      --bg-color: #000;
+      --bg-color: radial-gradient(ellipse at top, #1a1a2e 0%, #16213e 25%, #0f0f23 50%, #000000 100%);
       --text-color: #fff;
-      --header-bg: #1a1a1a;
+      --header-bg: rgba(26, 26, 26, 0.9);
       --card-bg: #111;
       --link-color: #ccc;
       --hover-bg: #333;
     }
 
     body.light {
-      --bg-color: #f2f2f2;
+      --bg-color: radial-gradient(ellipse at top, #f8fafc 0%, #e2e8f0 25%, #cbd5e1 50%, #94a3b8 100%);
       --text-color: #000;
-      --header-bg: #ffffff;
+      --header-bg: rgba(255, 255, 255, 0.9);
       --card-bg: #e4e4e4;
       --link-color: #111;
       --hover-bg: #ddd;
@@ -32,11 +32,67 @@
     }
 
     body {
-      background-color: var(--bg-color);
+      background: var(--bg-color);
       color: var(--text-color);
-      transition: background-color 0.5s ease, color 0.5s ease;
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
       overflow-x: hidden;
       animation: fadeInBody 0.8s ease forwards;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(79, 195, 247, 0.1) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(3, 169, 244, 0.08) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(79, 195, 247, 0.05) 0%, transparent 50%);
+      pointer-events: none;
+      z-index: -1;
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    body.light::before {
+      background: 
+        radial-gradient(circle at 20% 80%, rgba(79, 195, 247, 0.15) 0%, transparent 50%),
+        radial-gradient(circle at 80% 20%, rgba(3, 169, 244, 0.12) 0%, transparent 50%),
+        radial-gradient(circle at 40% 40%, rgba(79, 195, 247, 0.08) 0%, transparent 50%);
+      transform: scale(1.05);
+    }
+
+    /* Theme transition overlay */
+    body::after {
+      content: '';
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      width: 0;
+      height: 0;
+      background: radial-gradient(circle, var(--transition-color, #4fc3f7) 0%, transparent 70%);
+      border-radius: 50%;
+      pointer-events: none;
+      z-index: 9999;
+      transform: translate(-50%, -50%);
+      transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+      opacity: 0;
+    }
+
+    body.theme-transitioning::after {
+      width: 200vmax;
+      height: 200vmax;
+      opacity: 0.3;
+    }
+
+    /* Enhanced element transitions */
+    header, footer, nav, .attendance-buttons a, .menu-icons, .logo-container {
+      transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
     @keyframes fadeInBody {
@@ -45,13 +101,17 @@
     }
 
     header {
-      background-color: var(--header-bg);
+      background: var(--header-bg);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
       align-items: center;
       justify-content: space-between;
       padding: 0.6rem 1rem;
       flex-wrap: wrap;
       animation: slideDown 0.6s ease forwards;
+      position: relative;
+      z-index: 10;
     }
 
     .logo-container {
@@ -77,29 +137,55 @@
     .header-title h1 {
       font-size: 1.1rem;
       white-space: nowrap;
+      font-weight: 600;
+      letter-spacing: 0.5px;
     }
 
     .header-title span {
       font-size: 0.7rem;
       color: var(--link-color);
+      font-weight: 500;
+      letter-spacing: 1px;
+      text-transform: uppercase;
     }
 
     nav {
       display: flex;
       gap: 1rem;
+      overflow: hidden;
     }
 
     nav a {
       text-decoration: none;
       color: var(--link-color);
       font-size: 0.9rem;
+      font-weight: 500;
       padding: 0.4rem 0.7rem;
       border-radius: 4px;
-      transition: background 0.2s;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
     }
 
     nav a:hover {
       background-color: var(--hover-bg);
+      transform: translateY(-1px);
+      color: var(--text-color);
+    }
+
+    nav a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent);
+      transition: left 0.5s;
+    }
+
+    nav a:hover::before {
+      left: 100%;
     }
 
     .menu-icons {
@@ -147,12 +233,17 @@
 
       .header-title h1 {
         font-size: 0.95rem;
-        line-height: 1.2; /* Tighter line height */
+        line-height: 1.2;
+        font-weight: 600;
+        letter-spacing: 0.3px; /* Tighter line height */
       }
 
       .header-title span {
         font-size: 0.6rem;
-        line-height: 1.1; /* Tighter line height */
+        line-height: 1.1;
+        font-weight: 500;
+        letter-spacing: 0.8px;
+        text-transform: uppercase; /* Tighter line height */
       }
 
       .menu-icons {
@@ -167,12 +258,37 @@
         width: 100%;
         background-color: var(--header-bg);
         margin-top: 0.5rem;
+        border-radius: 8px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        overflow: hidden;
+        transform: translateY(-20px) scale(0.95);
+        opacity: 0;
+        transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
       }
 
       nav.active {
         display: flex;
-        animation: fadeInNav 0.3s ease forwards;
+        transform: translateY(0) scale(1);
+        opacity: 1;
       }
+
+      nav a {
+        margin: 0.2rem 0.5rem;
+        padding: 0.8rem 1rem;
+        border-radius: 6px;
+        font-weight: 500;
+        transform: translateX(-30px);
+        opacity: 0;
+        animation: slideInFromLeft 0.4s ease forwards;
+      }
+
+      nav a:nth-child(1) { animation-delay: 0.1s; }
+      nav a:nth-child(2) { animation-delay: 0.15s; }
+      nav a:nth-child(3) { animation-delay: 0.2s; }
+      nav a:nth-child(4) { animation-delay: 0.25s; }
+      nav a:nth-child(5) { animation-delay: 0.3s; }
 
       .menu-toggle {
         display: flex;
@@ -198,6 +314,39 @@
       to { opacity: 1; transform: translateY(0); }
     }
 
+    @keyframes themeToggleAnimation {
+      0% { 
+        transform: scale(1) rotate(0deg);
+      }
+      25% { 
+        transform: scale(1.3) rotate(90deg);
+        box-shadow: 0 0 20px rgba(79, 195, 247, 0.5);
+      }
+      50% { 
+        transform: scale(0.8) rotate(180deg);
+        box-shadow: 0 0 30px rgba(79, 195, 247, 0.8);
+      }
+      75% { 
+        transform: scale(1.2) rotate(270deg);
+        box-shadow: 0 0 20px rgba(79, 195, 247, 0.5);
+      }
+      100% { 
+        transform: scale(1) rotate(360deg);
+        box-shadow: none;
+      }
+    }
+
+    @keyframes slideInFromLeft {
+      from {
+        opacity: 0;
+        transform: translateX(-30px);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
     @keyframes fadeInNav {
       from { opacity: 0; transform: scaleY(0.9); }
       to { opacity: 1; transform: scaleY(1); }
@@ -212,6 +361,26 @@
       justify-content: center;
       text-align: center;
       animation: slideUp 0.7s ease forwards;
+    }
+
+    main h2 {
+      font-size: 2.2rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, #4fc3f7, #03a9f4);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 1px;
+    }
+
+    main p {
+      font-size: 1.1rem;
+      color: var(--link-color);
+      font-weight: 400;
+      margin-bottom: 1rem;
+      max-width: 600px;
+      line-height: 1.6;
     }
 
     @keyframes slideUp {
@@ -236,25 +405,54 @@
 
     .attendance-buttons a {
       text-decoration: none;
-      padding: 1rem;
-      background-color: #4fc3f7;
-      color: #000;
-      font-weight: bold;
-      border-radius: 8px;
-      transition: transform 0.2s, background 0.3s;
+      padding: 1.2rem;
+      background: linear-gradient(135deg, #4fc3f7, #03a9f4);
+      color: #fff;
+      font-weight: 600;
+      font-size: 0.95rem;
+      border-radius: 12px;
+      transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 4px 15px rgba(79, 195, 247, 0.3);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .attendance-buttons a::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent);
+      transition: left 0.6s;
     }
 
     .attendance-buttons a:hover {
-      background-color: #03a9f4;
-      transform: scale(1.03);
+      transform: translateY(-5px) scale(1.02);
+      box-shadow: 0 10px 30px rgba(79, 195, 247, 0.4);
+      background: linear-gradient(135deg, #03a9f4, #0288d1);
+    }
+
+    .attendance-buttons a:hover::before {
+      left: 100%;
+    }
+
+    .attendance-buttons a:active {
+      transform: translateY(-2px) scale(0.98);
     }
 
     footer {
-      background-color: var(--header-bg);
+      background: var(--header-bg);
+      backdrop-filter: blur(10px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
       color: var(--text-color);
       padding: 2rem;
       text-align: center;
       animation: fadeInFooter 1s ease forwards;
+      position: relative;
+      z-index: 10;
     }
 
     @keyframes fadeInFooter {
@@ -335,13 +533,14 @@
 </header>
 
 <main>
-  <h2>Welcome to the DAV College Portal</h2>
+  <h2>Academic Excellence Portal</h2>
+  <p>Your gateway to streamlined attendance management and academic resources. Stay connected, stay ahead.</p>
   <div class="attendance-buttons">
     <a href="https://prabh12112.github.io/ATTENDENCE-LOC-CHECK/" target="_blank">
-      Attendance for 10:30 AM to 11:15 AM Period
+      📚 Morning Session • 10:30 AM - 11:15 AM
     </a>
     <a href="https://prabh12112.github.io/ATTENDANCE-LOC-CHECK-1/" target="_blank">
-      Attendance for 12:00 PM to 12:45 PM Period
+      🎓 Afternoon Session • 12:00 PM - 12:45 PM
     </a>
   </div>
 </main>
@@ -372,12 +571,35 @@
 <script>
   const toggle = document.getElementById('menuToggle');
   const nav = document.getElementById('navMenu');
-  toggle.addEventListener('click', () => nav.classList.toggle('active'));
+  
+  toggle.addEventListener('click', () => {
+    nav.classList.toggle('active');
+    toggle.classList.toggle('active');
+  });
 
   const modeBtn = document.getElementById('darkModeBtn');
+  
   modeBtn.addEventListener('click', () => {
-    document.body.classList.toggle('light');
-    modeBtn.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+    // Add transitioning class for smooth animation
+    document.body.classList.add('theme-transitioning');
+    modeBtn.classList.add('transitioning');
+    
+    // Set transition color based on current theme
+    const isLight = document.body.classList.contains('light');
+    document.body.style.setProperty('--transition-color', isLight ? '#1a1a2e' : '#f8fafc');
+    
+    // Toggle theme
+    setTimeout(() => {
+      document.body.classList.toggle('light');
+      modeBtn.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+    }, 200);
+    
+    // Remove transitioning classes after animation
+    setTimeout(() => {
+      document.body.classList.remove('theme-transitioning');
+      modeBtn.classList.remove('transitioning');
+      document.body.style.removeProperty('--transition-color');
+    }, 800);
   });
 </script>
 
