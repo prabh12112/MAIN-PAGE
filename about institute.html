@@ -1,1 +1,957 @@
-print("helloworld")
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>About Institute - DAV Portal</title>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg-color: #0a0e27;
+      --text-color: #fff;
+      --header-bg: rgba(10, 14, 39, 0.4);
+      --card-bg: rgba(10, 14, 39, 0.3);
+      --link-color: #e3f2fd;
+      --hover-bg: rgba(255, 255, 255, 0.1);
+      --button-gradient: linear-gradient(135deg, #3f51b5, #1976d2);
+      --button-hover: linear-gradient(135deg, #1976d2, #1565c0);
+      --accent-color: #00bcd4;
+      --secondary-accent: #42a5f5;
+      --content-card-bg: rgba(15, 20, 45, 0.7);
+      --highlight-bg: rgba(0, 188, 212, 0.1);
+    }
+
+    body.light {
+      --bg-color: #e8eaf6;
+      --text-color: #0a0e27;
+      --header-bg: rgba(232, 234, 246, 0.4);
+      --card-bg: rgba(255, 255, 255, 0.8);
+      --link-color: #3f51b5;
+      --hover-bg: rgba(63, 81, 181, 0.1);
+      --button-gradient: linear-gradient(135deg, #3f51b5, #1976d2);
+      --button-hover: linear-gradient(135deg, #1976d2, #1565c0);
+      --accent-color: #0097a7;
+      --secondary-accent: #1976d2;
+      --content-card-bg: rgba(255, 255, 255, 0.9);
+      --highlight-bg: rgba(0, 151, 167, 0.1);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Montserrat', sans-serif;
+    }
+
+    body {
+      background: var(--bg-color);
+      color: var(--text-color);
+      transition: all 0.3s ease;
+      overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
+    }
+
+    body.menu-open {
+      overflow: hidden;
+    }
+
+    /* Fixed Header */
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      right: 0;
+      background: var(--header-bg);
+      backdrop-filter: blur(25px) saturate(180%);
+      -webkit-backdrop-filter: blur(25px) saturate(180%);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1rem 2rem;
+      height: 80px;
+      z-index: 1000;
+      transition: all 0.3s ease;
+      box-shadow: 0 4px 30px rgba(0, 0, 0, 0.15);
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.1) 0%, rgba(255, 255, 255, 0.05) 100%);
+      border-radius: inherit;
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .logo-container {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      flex: 1;
+    }
+
+    .logo-container img {
+      height: 50px;
+      width: auto;
+      background: white;
+      border-radius: 10px;
+      padding: 6px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      transform: translateY(-2px);
+    }
+
+    .header-title {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header-title h1 {
+      font-size: 1.4rem;
+      font-weight: 700;
+      letter-spacing: 0.5px;
+      margin-bottom: 2px;
+    }
+
+    .header-title span {
+      font-size: 0.75rem;
+      color: var(--link-color);
+      font-weight: 500;
+      letter-spacing: 1.2px;
+      text-transform: uppercase;
+      opacity: 0.9;
+    }
+
+    .menu-icons {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .toggle-mode {
+      background: none;
+      border: none;
+      font-size: 1.4rem;
+      color: var(--text-color);
+      cursor: pointer;
+      padding: 0.6rem;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+    }
+
+    .toggle-mode:hover {
+      transform: scale(1.1);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      cursor: pointer;
+      padding: 0.5rem;
+      border-radius: 8px;
+      transition: all 0.3s ease;
+    }
+
+    .menu-toggle:hover {
+      background: rgba(255, 255, 255, 0.1);
+    }
+
+    .menu-toggle span {
+      height: 3px;
+      width: 25px;
+      background: var(--text-color);
+      margin: 3px 0;
+      border-radius: 2px;
+      transition: all 0.3s ease;
+    }
+
+    nav {
+      display: flex;
+      gap: 0.5rem;
+    }
+
+    nav a {
+      text-decoration: none;
+      color: var(--link-color);
+      font-size: 0.95rem;
+      font-weight: 600;
+      padding: 0.8rem 1.2rem;
+      border-radius: 10px;
+      transition: all 0.3s ease;
+      position: relative;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    nav a:hover, nav a.active {
+      background: var(--hover-bg);
+      transform: translateY(-2px);
+      color: var(--text-color);
+      box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+    }
+
+    /* Mobile Navigation */
+    @media (max-width: 768px) {
+      header {
+        padding: 1rem;
+        height: 70px;
+      }
+
+      .logo-container img {
+        height: 40px;
+        display: none;
+      }
+
+      .header-title h1 {
+        font-size: 1.1rem;
+      }
+
+      .header-title span {
+        font-size: 0.65rem;
+      }
+
+      .menu-toggle {
+        display: flex;
+      }
+
+      nav {
+        position: fixed;
+        top: 70px;
+        left: 0;
+        right: 0;
+        background: var(--header-bg);
+        backdrop-filter: blur(25px) saturate(180%);
+        -webkit-backdrop-filter: blur(25px) saturate(180%);
+        flex-direction: column;
+        padding: 1rem;
+        gap: 0.5rem;
+        transform: translateY(-100%);
+        opacity: 0;
+        visibility: hidden;
+        transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+        border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+        box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        z-index: 999;
+      }
+
+      nav.active {
+        transform: translateY(0);
+        opacity: 1;
+        visibility: visible;
+      }
+
+      nav a {
+        padding: 1rem;
+        margin: 0.2rem 0;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        pointer-events: none;
+        transition: pointer-events 0s 0.4s;
+      }
+
+      nav.active a {
+        pointer-events: auto;
+        transition: pointer-events 0s 0s;
+      }
+    }
+
+    /* Main Content */
+    main {
+      margin-top: 80px;
+      padding: 3rem 2rem;
+      min-height: calc(100vh - 80px);
+      transition: all 0.4s ease;
+    }
+
+    main.menu-open {
+      transform: translateY(340px);
+    }
+
+    .page-header {
+      text-align: center;
+      margin-bottom: 3rem;
+    }
+
+    .page-header h2 {
+      font-size: 2.8rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--accent-color), var(--secondary-accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      letter-spacing: 1px;
+    }
+
+    .page-header .subtitle {
+      font-size: 1.4rem;
+      color: var(--accent-color);
+      font-weight: 500;
+      margin-bottom: 1rem;
+    }
+
+    .page-header p {
+      font-size: 1.1rem;
+      color: var(--link-color);
+      opacity: 0.9;
+      max-width: 800px;
+      margin: 0 auto;
+      line-height: 1.6;
+    }
+
+    /* Content Container */
+    .content-container {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      gap: 2.5rem;
+    }
+
+    .content-section {
+      background: var(--content-card-bg);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 16px;
+      padding: 2.5rem;
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .content-section::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0.02) 100%);
+      pointer-events: none;
+      z-index: -1;
+    }
+
+    .content-section:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0, 0, 0, 0.2);
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+
+    .content-section h3 {
+      font-size: 1.5rem;
+      color: var(--secondary-accent);
+      margin-bottom: 1.5rem;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .content-section h3::before {
+      content: '';
+      width: 4px;
+      height: 30px;
+      background: linear-gradient(135deg, var(--secondary-accent), var(--accent-color));
+      border-radius: 2px;
+    }
+
+    .content-section p {
+      margin-bottom: 1.2rem;
+      line-height: 1.7;
+      color: var(--text-color);
+      opacity: 0.9;
+      font-size: 1rem;
+    }
+
+    .content-section ul {
+      padding-left: 1.5rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .content-section li {
+      margin-bottom: 0.8rem;
+      line-height: 1.6;
+      color: var(--text-color);
+      opacity: 0.9;
+      position: relative;
+    }
+
+    .content-section li::marker {
+      color: var(--accent-color);
+    }
+
+    .content-section strong {
+      color: var(--accent-color);
+      font-weight: 600;
+    }
+
+    /* Special sections styling */
+    .overview-section {
+      background: linear-gradient(135deg, rgba(0, 188, 212, 0.1), rgba(66, 165, 245, 0.05));
+      border: 1px solid rgba(0, 188, 212, 0.3);
+    }
+
+    .mission-section {
+      background: linear-gradient(135deg, rgba(66, 165, 245, 0.1), rgba(63, 81, 181, 0.05));
+      border: 1px solid rgba(66, 165, 245, 0.3);
+    }
+
+    .alumni-section {
+      background: linear-gradient(135deg, rgba(255, 193, 7, 0.1), rgba(255, 152, 0, 0.05));
+      border: 1px solid rgba(255, 193, 7, 0.3);
+    }
+
+    .alumni-section h3 {
+      color: #ffb74d;
+    }
+
+    .alumni-section h3::before {
+      background: linear-gradient(135deg, #ffb74d, #ff9800);
+    }
+
+    .achievements-section {
+      background: linear-gradient(135deg, rgba(76, 175, 80, 0.1), rgba(139, 195, 74, 0.05));
+      border: 1px solid rgba(76, 175, 80, 0.3);
+    }
+
+    .achievements-section h3 {
+      color: #81c784;
+    }
+
+    .achievements-section h3::before {
+      background: linear-gradient(135deg, #81c784, #4caf50);
+    }
+
+    /* Stats Grid */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin: 2rem 0;
+    }
+
+    .stat-card {
+      background: var(--highlight-bg);
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+      transition: all 0.3s ease;
+    }
+
+    .stat-card:hover {
+      transform: translateY(-3px);
+      background: rgba(0, 188, 212, 0.15);
+    }
+
+    .stat-number {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--accent-color);
+      display: block;
+      margin-bottom: 0.5rem;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-color);
+      opacity: 0.8;
+    }
+
+    /* Mobile Optimizations */
+    @media (max-width: 768px) {
+      main {
+        padding: 2rem 1rem;
+        margin-top: 70px;
+        min-height: calc(100vh - 70px);
+      }
+
+      main.menu-open {
+        transform: translateY(360px);
+      }
+
+      .page-header h2 {
+        font-size: 2.2rem;
+        margin-bottom: 0.8rem;
+      }
+
+      .page-header .subtitle {
+        font-size: 1.1rem;
+      }
+
+      .page-header p {
+        font-size: 1rem;
+        padding: 0 0.5rem;
+      }
+
+      .content-container {
+        gap: 2rem;
+      }
+
+      .content-section {
+        padding: 2rem;
+      }
+
+      .content-section h3 {
+        font-size: 1.3rem;
+        gap: 0.8rem;
+      }
+
+      .stats-grid {
+        grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+        gap: 1rem;
+      }
+
+      .stat-card {
+        padding: 1.2rem;
+      }
+
+      .stat-number {
+        font-size: 1.6rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      header {
+        padding: 0.8rem;
+      }
+
+      main {
+        padding: 1.5rem 0.8rem;
+      }
+
+      .page-header h2 {
+        font-size: 1.8rem;
+      }
+
+      .page-header .subtitle {
+        font-size: 1rem;
+      }
+
+      .content-section {
+        padding: 1.5rem;
+      }
+
+      .content-section h3 {
+        font-size: 1.2rem;
+        gap: 0.6rem;
+      }
+    }
+
+    /* Footer */
+    footer {
+      background: var(--header-bg);
+      backdrop-filter: blur(15px);
+      -webkit-backdrop-filter: blur(15px);
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+      color: var(--text-color);
+      padding: 3rem 2rem 2rem;
+      position: relative;
+      z-index: 10;
+      transition: all 0.4s ease;
+    }
+
+    footer.menu-open {
+      transform: translateY(340px);
+    }
+
+    .footer-content {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 2rem;
+      margin-bottom: 2rem;
+      max-width: 1200px;
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .footer-section h4 {
+      font-size: 1.1rem;
+      margin-bottom: 1rem;
+      font-weight: 600;
+      color: var(--text-color);
+    }
+
+    .footer-section ul {
+      list-style: none;
+      padding: 0;
+      font-weight: normal;
+    }
+
+    .footer-section li {
+      margin-bottom: 0.5rem;
+      font-weight: normal;
+      color: var(--link-color);
+    }
+
+    .footer-section a {
+      color: var(--link-color);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    .footer-section a:hover {
+      color: var(--text-color);
+      transform: translateX(5px);
+    }
+
+    .footer-divider {
+      height: 1px;
+      background: rgba(255, 255, 255, 0.2);
+      margin: 2rem 0;
+    }
+
+    .footer-bottom {
+      font-size: 0.85rem;
+      text-align: center;
+      opacity: 0.8;
+    }
+
+    @media (max-width: 768px) {
+      footer {
+        padding: 1.5rem 1rem 1rem;
+      }
+
+      footer.menu-open {
+        transform: translateY(360px);
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 1rem;
+        margin-bottom: 1rem;
+      }
+
+      .footer-section h4 {
+        font-size: 0.9rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .footer-section a {
+        font-size: 0.8rem;
+      }
+
+      .footer-section li {
+        margin-bottom: 0.3rem;
+        font-weight: normal;
+        font-size: 0.8rem;
+      }
+
+      .footer-divider {
+        margin: 1rem 0;
+      }
+
+      .footer-bottom {
+        font-size: 0.75rem;
+      }
+    }
+  </style>
+</head>
+<body oncontextmenu="return false">
+
+<header>
+  <div class="logo-container">
+    <img src="logo-512x512-1.png" alt="DAV Logo" />
+    <div class="header-title">
+      <h1>D.A.V. College Jalandhar</h1>
+      <span>BCA BATCH 2025 – 2028</span>
+    </div>
+  </div>
+
+  <div class="menu-icons">
+    <button class="toggle-mode" id="darkModeBtn" title="Toggle theme">🌙</button>
+    <div class="menu-toggle" id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+  </div>
+
+  <nav id="navMenu">
+    <a href="https://prabh12112.github.io/MAIN-PAGE/#">Home</a>
+    <a href="https://prabh12112.github.io/MAIN-PAGE/attendance.html">Attendance</a>
+    <a href="https://prabh12112.github.io/MAIN-PAGE/resources.html">Resources</a>
+    <a href="https://prabh12112.github.io/MAIN-PAGE/events.html">Events</a>
+    <a href="https://prabh12112.github.io/MAIN-PAGE/about%20institute.html" class="active">About Institute</a>
+  </nav>
+</header>
+
+<main id="mainContent">
+  <div class="page-header">
+    <h2>About D.A.V. College</h2>
+    <div class="subtitle">Jalandhar, Punjab</div>
+    <p>A century-old institution dedicated to fostering excellence in education while preserving timeless values and nurturing global citizens through holistic learning.</p>
+  </div>
+
+  <div class="content-container">
+    <div class="content-section overview-section">
+      <h3>College Overview</h3>
+      <p>DAV College, Jalandhar is a prominent co-educational private institution located in Punjab, India. <strong>Established in 1918</strong> by Pt. Mehar Chand in memory of Maharshi Dayanand Saraswati Ji, the college is affiliated with <strong>Guru Nanak Dev University, Amritsar</strong> and recognized by UGC under sections 2(f) and 12(B) of the UGC Act, 1956.</p>
+      
+      <div class="stats-grid">
+        <div class="stat-card">
+          <span class="stat-number">1918</span>
+          <div class="stat-label">Established</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">105+</span>
+          <div class="stat-label">Years of Excellence</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">88</span>
+          <div class="stat-label">Acres Campus</div>
+        </div>
+        <div class="stat-card">
+          <span class="stat-number">22</span>
+          <div class="stat-label">Academic Departments</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="content-section mission-section">
+      <h3>Mission and Values</h3>
+      <p>The college aims to impart modern education while preserving <strong>Vedic values</strong>. It encourages innovation and global citizenship through universal and holistic learning systems.</p>
+      <p>Our commitment extends beyond academic excellence to character building, environmental consciousness, and community service, preparing students to become responsible global citizens.</p>
+    </div>
+
+    <div class="content-section">
+      <h3>Academic Programs</h3>
+      <ul>
+        <li>Offers <strong>UG, PG, Diploma, and PG Diploma</strong> programs in Arts, Science, Commerce, Computer Applications, Economics, and Business Administration.</li>
+        <li>Comprises <strong>22 academic departments</strong> with highly qualified faculty members.</li>
+        <li>Runs a <strong>Senior Secondary wing</strong> (10+1 & 10+2) under PSEB, Mohali.</li>
+        <li>Admissions are mostly <strong>merit-based</strong>; some professional courses require entrance criteria.</li>
+      </ul>
+    </div>
+
+    <div class="content-section">
+      <h3>Infrastructure and Facilities</h3>
+      <ul>
+        <li><strong>Campus:</strong> 88 acres with modern infrastructure and eco-friendly building practices.</li>
+        <li><strong>Laboratories:</strong> Hi-tech science labs and computer labs with leased-line internet connectivity.</li>
+        <li><strong>Library:</strong> Over 2 lakh books, 93 periodicals, DELNET access for research.</li>
+        <li><strong>Classrooms:</strong> Spacious smart classrooms, some ICT-enabled for enhanced learning.</li>
+        <li><strong>Hostels:</strong> 5 hostels (2 boys, 2 girls) with modern amenities and recreational facilities.</li>
+        <li><strong>Sports:</strong> Comprehensive facilities for swimming, shooting, football, cricket, tennis, and more.</li>
+        <li><strong>Other Facilities:</strong> Auditorium, canteens, seminar halls, open-air theatre, Yagyashala.</li>
+        <li><strong>Environmental Initiatives:</strong> Eco-friendly building practices and sustainability programs.</li>
+      </ul>
+    </div>
+
+    <div class="content-section">
+      <h3>Student Life & Holistic Development</h3>
+      <p>The college promotes co-curricular activities through <strong>31 societies, clubs, and associations</strong>. Our hostels nurture mutual respect and cultural diversity through various events and competitions.</p>
+      <p><strong>Community service</strong> and <strong>environmental education</strong> are key values integrated into student life, fostering social responsibility and environmental consciousness among students.</p>
+    </div>
+
+    <div class="content-section alumni-section">
+      <h3>Notable Alumni</h3>
+      <ul>
+        <li><strong>Science:</strong> Dr. Har Gobind Khorana (Nobel Laureate in Physiology or Medicine)</li>
+        <li><strong>Music & Arts:</strong> Jagjit Singh (Ghazal King), Hans Raj Hans, Sukhwinder Singh</li>
+        <li><strong>Medicine:</strong> Dr. Harvinder Sahota, Dr. K.K. Talwar</li>
+        <li><strong>Public Service:</strong> Sharat Sabharwal (Former Ambassador to Pakistan)</li>
+      </ul>
+    </div>
+
+    <div class="content-section achievements-section">
+      <h3>Recognitions and Achievements</h3>
+      <ul>
+        <li>Ranked among <strong>top 10 colleges in Northern India</strong> by The Tribune (2018).</li>
+        <li><strong>NAAC-accredited</strong> with CGPA of 3.76, reflecting our commitment to quality education.</li>
+        <li>First institution to create <strong>"Navgraha Vatika"</strong> with copyright-registered design.</li>
+        <li>Physics Department holds a <strong>patent on solar hydrogen production technology</strong>.</li>
+      </ul>
+    </div>
+
+    <div class="content-section">
+      <p style="text-align: center; font-style: italic; font-size: 1.1rem; color: var(--accent-color); margin-bottom: 0;">
+        <strong>DAV College, Jalandhar continues to foster a culture of excellence, innovation, and global education grounded in Indian values.</strong>
+      </p>
+    </div>
+  </div>
+</main>
+
+<footer id="footerContent">
+  <div class="footer-content">
+    <div class="footer-section">
+      <h4>Quick Links</h4>
+      <ul>
+        <li><a href="https://prabh12112.github.io/MAIN-PAGE/#">Portal Home</a></li>
+        <li><a href="https://prabh12112.github.io/MAIN-PAGE/attendance%20policy.html">Attendance Policy</a></li>
+        <li><a href="#" onclick="scrollToTop()">Back to Top</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Social Media</h4>
+      <ul>
+        <li><a href="https://www.youtube.com/@nischaybahl7714" target="_blank">YouTube Channel</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Contact Information</h4>
+      <ul>
+        <li><a href="mailto:bca25.28.dav@gmail.com">bca25.28.dav@gmail.com</a></li>
+      </ul>
+    </div>
+    <div class="footer-section">
+      <h4>Campus Address</h4>
+      <ul>
+        <li>D.A.V. College, Mahatma Hansraj Marg,<br>Jalandhar, Punjab – 144008, India</li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-divider"></div>
+  <div class="footer-bottom">
+    © 2025 D.A.V. College Jalandhar | Developed by Prabhsimranjot Singh, BCA (FCA-1)
+  </div>
+</footer>
+
+<script>
+  const toggle = document.getElementById('menuToggle');
+  const nav = document.getElementById('navMenu');
+  const mainContent = document.getElementById('mainContent');
+  const footerContent = document.getElementById('footerContent');
+  
+  toggle.addEventListener('click', () => {
+    nav.classList.toggle('active');
+    toggle.classList.toggle('active');
+    
+    if (nav.classList.contains('active')) {
+      mainContent.classList.add('menu-open');
+      footerContent.classList.add('menu-open');
+      document.body.classList.add('menu-open');
+    } else {
+      mainContent.classList.remove('menu-open');
+      footerContent.classList.remove('menu-open');
+      document.body.classList.remove('menu-open');
+    }
+  });
+
+  // Close mobile menu when clicking outside
+  document.addEventListener('click', (e) => {
+    if (!toggle.contains(e.target) && !nav.contains(e.target)) {
+      nav.classList.remove('active');
+      toggle.classList.remove('active');
+      mainContent.classList.remove('menu-open');
+      footerContent.classList.remove('menu-open');
+      document.body.classList.remove('menu-open');
+    }
+  });
+
+  const modeBtn = document.getElementById('darkModeBtn');
+  
+  modeBtn.addEventListener('click', () => {
+    document.body.classList.toggle('light');
+    modeBtn.textContent = document.body.classList.contains('light') ? '☀️' : '🌙';
+    
+    // Store theme preference
+    localStorage.setItem('theme', document.body.classList.contains('light') ? 'light' : 'dark');
+  });
+
+  // Load saved theme
+  const savedTheme = localStorage.getItem('theme');
+  if (savedTheme === 'light') {
+    document.body.classList.add('light');
+    modeBtn.textContent = '☀️';
+  }
+
+  function scrollToTop() {
+    window.scrollTo({
+      top: 0,
+      behavior: 'smooth'
+    });
+  }
+
+  // Smooth scrolling for anchor links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.getAttribute('href'));
+      if (target) {
+        target.scrollIntoView({
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+
+  // Add scroll-triggered animations
+  const observerOptions = {
+    threshold: 0.1,
+    rootMargin: '0px 0px -50px 0px'
+  };
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, observerOptions);
+
+  // Observe content sections for animation
+  document.querySelectorAll('.content-section').forEach((section, index) => {
+    section.style.opacity = '0';
+    section.style.transform = 'translateY(30px)';
+    section.style.transition = `opacity 0.6s ease ${index * 0.1}s, transform 0.6s ease ${index * 0.1}s`;
+    observer.observe(section);
+  });
+
+  // Animate stats on scroll
+  const animateStats = () => {
+    const statNumbers = document.querySelectorAll('.stat-number');
+    statNumbers.forEach(stat => {
+      const finalValue = stat.textContent;
+      let currentValue = 0;
+      const increment = finalValue.includes('+') ? 1 : (finalValue === '1918' ? 19 : 1);
+      const duration = 2000;
+      const stepTime = duration / (parseInt(finalValue) / increment);
+
+      const counter = setInterval(() => {
+        currentValue += increment;
+        if (finalValue.includes('+')) {
+          stat.textContent = currentValue + '+';
+          if (currentValue >= parseInt(finalValue)) {
+            stat.textContent = finalValue;
+            clearInterval(counter);
+          }
+        } else if (finalValue === '1918') {
+          stat.textContent = currentValue;
+          if (currentValue >= 1918) {
+            stat.textContent = '1918';
+            clearInterval(counter);
+          }
+        } else {
+          stat.textContent = currentValue;
+          if (currentValue >= parseInt(finalValue)) {
+            stat.textContent = finalValue;
+            clearInterval(counter);
+          }
+        }
+      }, stepTime);
+    });
+  };
+
+  // Trigger stats animation when visible
+  const statsObserver = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (entry.isIntersecting) {
+        animateStats();
+        statsObserver.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.5 });
+
+  const statsGrid = document.querySelector('.stats-grid');
+  if (statsGrid) {
+    statsObserver.observe(statsGrid);
+  }
